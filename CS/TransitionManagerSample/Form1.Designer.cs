@@ -1,4 +1,5 @@
-﻿namespace TransitionManagerSample {
+﻿
+namespace TransitionManagerSample {
     partial class Form1 {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +30,6 @@
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
-            this.transitionManager1 = new DevExpress.Utils.Animation.TransitionManager();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
@@ -50,13 +50,12 @@
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 45);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
+            this.xtraTabControl1.SelectedPageChanged += XtraTabControl1_SelectedPageChanged;
             this.xtraTabControl1.Size = new System.Drawing.Size(347, 255);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
             this.xtraTabPage2});
-            this.xtraTabControl1.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.xtraTabControl1_SelectedPageChanged);
-            this.xtraTabControl1.SelectedPageChanging += new DevExpress.XtraTab.TabPageChangingEventHandler(this.xtraTabControl1_SelectedPageChanging);
             // 
             // xtraTabPage1
             // 
@@ -89,11 +88,6 @@
             this.pictureEdit2.Name = "pictureEdit2";
             this.pictureEdit2.Size = new System.Drawing.Size(341, 227);
             this.pictureEdit2.TabIndex = 1;
-            // 
-            // transitionManager1
-            // 
-            this.transitionManager1.ShowWaitingIndicator = false;
-            this.transitionManager1.CustomTransition += new DevExpress.Utils.Animation.CustomTransitionEventHandler(this.transitionManager1_CustomTransition);
             // 
             // panelControl1
             // 
@@ -145,10 +139,8 @@
             this.ResumeLayout(false);
 
         }
-
         #endregion
 
-        private DevExpress.Utils.Animation.TransitionManager transitionManager1;
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;

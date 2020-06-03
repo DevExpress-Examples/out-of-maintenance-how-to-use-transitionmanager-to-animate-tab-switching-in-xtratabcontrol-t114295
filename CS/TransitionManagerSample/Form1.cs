@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using DevExpress.Utils.Animation;
 using DevExpress.XtraEditors;
@@ -15,31 +16,18 @@ namespace TransitionManagerSample {
         public Form1() {
             InitializeComponent();
         }
-
-        Control animatedControl;
-
-        private void xtraTabControl1_SelectedPageChanging(object sender, DevExpress.XtraTab.TabPageChangingEventArgs e) {
-            // Start the state transition when a page is about to be switched.
-            if (animatedControl == null) return;
-            transitionManager1.StartTransition(animatedControl);
-        }
-
-        private void xtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e) {
-            // Finish the transition after a page has been selected.
-            transitionManager1.EndTransition();
-        }
-
         private void Form1_Load(object sender, EventArgs e) {
-            animatedControl = xtraTabControl1;
-
             // Populate the ImageComboBox with available transition types.
             imageComboBoxEdit1.Properties.Items.AddEnum(typeof(DevExpress.Utils.Animation.Transitions));
             imageComboBoxEdit1.SelectedIndexChanged += imageComboBoxEdit1_SelectedIndexChanged;
             imageComboBoxEdit1.SelectedIndex = 0;
+
+            xtraTabControl1.Transition.AllowTransition = DevExpress.Utils.DefaultBoolean.True;
+            xtraTabControl1.Transition.EasingMode = DevExpress.Data.Utils.EasingMode.EaseInOut;
         }
 
         BaseTransition CreateTransitionInstance(Transitions transitionType) {
-            switch (transitionType) {
+            switch(transitionType) {
                 case Transitions.Dissolve: return new DissolveTransition();
                 case Transitions.Fade: return new FadeTransition();
                 case Transitions.Shape: return new ShapeTransition();
@@ -52,29 +40,13 @@ namespace TransitionManagerSample {
         }
 
         void imageComboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e) {
-            ImageComboBoxEdit imComboBox = sender as ImageComboBoxEdit;
-
-            if (transitionManager1.Transitions[animatedControl] == null) {
-                // Add a transition, associated with the xtraTabControl1, to the TransitionManager.
-                Transition transition1 = new Transition();
-                transition1.Control = animatedControl;
-                transitionManager1.Transitions.Add(transition1);
-            }
-            // Specify the transition type.
-            DevExpress.Utils.Animation.Transitions trType = (DevExpress.Utils.Animation.Transitions)imComboBox.EditValue;
-            transitionManager1.Transitions[animatedControl].TransitionType = CreateTransitionInstance(trType);
+            var edit = sender as ImageComboBoxEdit;
+            var trType = (Transitions)edit.EditValue;
+            xtraTabControl1.Transition.TransitionType = CreateTransitionInstance(trType);
+        }
+        void XtraTabControl1_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e) {
+            Thread.Sleep(500);
         }
 
-        // A custom easing function.
-        DevExpress.Data.Utils.IEasingFunction myEasingFunc = new DevExpress.Data.Utils.BackEase();
-
-        private void transitionManager1_CustomTransition(DevExpress.Utils.Animation.ITransition transition, DevExpress.Utils.Animation.CustomTransitionEventArgs e) {
-            // Set a clip region for the state transition.
-            e.Regions = new Rectangle[] { xtraTabPage1.Bounds };
-            // Specify a custom easing function.
-            e.EasingFunction = myEasingFunc;
-        }
-
-        
     }
 }

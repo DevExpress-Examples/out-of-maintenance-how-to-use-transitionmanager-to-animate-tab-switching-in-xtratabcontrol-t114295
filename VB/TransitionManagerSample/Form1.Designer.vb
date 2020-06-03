@@ -28,7 +28,6 @@ Partial Class Form1
         Me.PictureEdit1 = New DevExpress.XtraEditors.PictureEdit()
         Me.XtraTabPage2 = New DevExpress.XtraTab.XtraTabPage()
         Me.PictureEdit2 = New DevExpress.XtraEditors.PictureEdit()
-        Me.TransitionManager1 = New DevExpress.Utils.Animation.TransitionManager()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.ImageComboBoxEdit1 = New DevExpress.XtraEditors.ImageComboBoxEdit()
@@ -85,10 +84,6 @@ Partial Class Form1
         Me.PictureEdit2.Size = New System.Drawing.Size(313, 174)
         Me.PictureEdit2.TabIndex = 0
         '
-        'TransitionManager1
-        '
-        Me.TransitionManager1.ShowWaitingIndicator = False
-        '
         'PanelControl1
         '
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
@@ -142,7 +137,6 @@ Partial Class Form1
     Friend WithEvents PictureEdit1 As DevExpress.XtraEditors.PictureEdit
     Friend WithEvents XtraTabPage2 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents PictureEdit2 As DevExpress.XtraEditors.PictureEdit
-    Friend WithEvents TransitionManager1 As DevExpress.Utils.Animation.TransitionManager
     Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents ImageComboBoxEdit1 As DevExpress.XtraEditors.ImageComboBoxEdit
